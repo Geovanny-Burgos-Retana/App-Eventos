@@ -34,6 +34,7 @@ public class EventDB extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
+        // Creación de la tabla de eventos en la BD
         sqLiteDatabase.execSQL("create table " + tableName + "(" +
                 idColumn + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
                 nameColumn + " TEXT NOT NULL, " +
@@ -49,6 +50,11 @@ public class EventDB extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
+    /**
+     * Insertar un nuevo evento en la BD
+     * @param event
+     * @return
+     */
     public boolean create(Event event) {
         try {
             SQLiteDatabase sqLiteDatabase = getWritableDatabase();
@@ -66,6 +72,10 @@ public class EventDB extends SQLiteOpenHelper {
         }
     }
 
+    /**
+     * Lee todos los eventos de la BD
+     * @return
+     */
     public ArrayList<Event> readAll() {
         try {
             ArrayList<Event> events = new ArrayList<>();
@@ -91,9 +101,11 @@ public class EventDB extends SQLiteOpenHelper {
         }
     }
 
-
-
-
+    /**
+     * Eliminar de la BD un evento por su ID
+     * @param id
+     * @return
+     */
     public boolean delete(int id) {
         try {
             SQLiteDatabase sqLiteDatabase = getWritableDatabase();

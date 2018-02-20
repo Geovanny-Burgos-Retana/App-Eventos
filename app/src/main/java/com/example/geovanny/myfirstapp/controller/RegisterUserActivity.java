@@ -32,18 +32,14 @@ public class RegisterUserActivity extends AppCompatActivity {
         this.registerUser_btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("Boton");
                 UserDB userDB = new UserDB(getBaseContext());
-                for (int i=0; i<userDB.findAll().size();i++)
-                    System.out.println(userDB.findAll().get(i).toString());
                 User user = new User();
                 user.setId(1);
                 user.setName(registerUser_editTextName.getText().toString());
                 user.setUsername(registerUser_editTextUsername.getText().toString());
                 user.setPassword(registerUser_editTextPassword.getText().toString());
                 if (userDB.create(user)) {
-                    System.out.println("Boton");
-                    Toast.makeText(getBaseContext(),"Registrando", Toast.LENGTH_LONG);
+                    Toast.makeText(getBaseContext(),"Registrado", Toast.LENGTH_LONG);
                     Intent intent1 = new Intent(RegisterUserActivity.this, LoginActivity.class);
                     startActivity(intent1);
                 } else {

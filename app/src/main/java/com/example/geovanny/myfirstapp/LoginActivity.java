@@ -31,6 +31,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.geovanny.myfirstapp.controller.MainActivity;
 import com.example.geovanny.myfirstapp.controller.RegisterUserActivity;
 import com.example.geovanny.myfirstapp.database.UserDB;
 import com.example.geovanny.myfirstapp.model.User;
@@ -357,13 +358,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             if (success) {
                 UserDB userDB = new UserDB(getBaseContext());
                 User user = userDB.findOne();
-                System.out.println(user.getUsername()+mEmailView.getText().toString()+user.getPassword()+mPasswordView.getText().toString());
                 if ((user != null) && (user.getUsername().equals(mEmailView.getText().toString())) && user.getPassword().equals(mPasswordView.getText().toString())) {
-                    Intent intent2 =new Intent(LoginActivity.this, MenuActivity.class);
+                    Intent intent2 =new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent2);
                 } else {
-                    Toast.makeText(getApplicationContext(), "Resgistrese", Toast.LENGTH_LONG);
-                    System.out.println("REGISTRESE");
+                    mPasswordView.setError(getString(R.string.error_incorrect_password));
+                    mPasswordView.requestFocus();
                 }
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));

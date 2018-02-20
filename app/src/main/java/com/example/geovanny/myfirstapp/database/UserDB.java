@@ -31,6 +31,7 @@ public class UserDB extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
+        //Creacion de la tabla para eventos en la BD
         sqLiteDatabase.execSQL("create table " + tableName + "(" +
                 idColumn + " INTEGER NOT NULL PRIMARY KEY, " +
                 nameColumn + " TEXT NOT NULL, " +
@@ -44,6 +45,30 @@ public class UserDB extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
+    /**
+     * Insertar un usuario a la base de datos
+     * @param user
+     * @return
+     */
+    public boolean create(User user) {
+        try {
+            SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(nameColumn, user.getName());
+            contentValues.put(usernameColumn, user.getUsername());
+            contentValues.put(passwordColumn, user.getPassword());
+            long rows = sqLiteDatabase.insert(tableName,null, contentValues);
+            sqLiteDatabase.close();
+            return rows > 0;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    /**
+     * Consultar los datos del único usuario
+     * @return
+     */
     public User findOne() {
         try {
             SQLiteDatabase sqLiteDatabase = getWritableDatabase();
@@ -64,45 +89,11 @@ public class UserDB extends SQLiteOpenHelper {
         }
     }
 
-
-    public ArrayList<User> findAll() {
-        try {
-            ArrayList<User> users = new ArrayList<>();
-            SQLiteDatabase sqLiteDatabase = getWritableDatabase();
-            Cursor cursor = sqLiteDatabase.rawQuery("select * from " + tableName, null);
-            if (cursor.moveToFirst()) {
-                do {
-                    User user = new User();
-                    user.setId(cursor.getInt(0));
-                    user.setName(cursor.getString(1));
-                    user.setUsername(cursor.getString(2));
-                    user.setPassword(cursor.getString(3));
-                    users.add(user);
-                    user.toString();
-                } while (cursor.moveToNext());
-            }
-            sqLiteDatabase.close();
-            return users;
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    public boolean create(User user) {
-        try {
-            SQLiteDatabase sqLiteDatabase = getWritableDatabase();
-            ContentValues contentValues = new ContentValues();
-            contentValues.put(nameColumn, user.getName());
-            contentValues.put(usernameColumn, user.getUsername());
-            contentValues.put(passwordColumn, user.getPassword());
-            long rows = sqLiteDatabase.insert(tableName,null, contentValues);
-            sqLiteDatabase.close();
-            return rows > 0;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
+    /**
+     * Actualizar en la BD las credenciales del usuario
+     * @param user
+     * @return
+     */
     public boolean update(User user) {
         try {
             SQLiteDatabase sqLiteDatabase = getWritableDatabase();
