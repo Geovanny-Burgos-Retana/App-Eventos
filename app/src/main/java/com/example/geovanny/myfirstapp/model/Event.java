@@ -1,16 +1,32 @@
 package com.example.geovanny.myfirstapp.model;
 
+import com.example.geovanny.myfirstapp.R;
+
+import java.io.Serializable;
+
 /**
  * Created by geovanny on 18/02/18.
  */
 
-public class Event {
+public class Event implements Serializable{
     private int id;
     private String name;
     private String contactPhone;
     private String dayhour;
     private int price;
     private String place;
+    private int imagen = R.mipmap.icparque;
+
+    public Event(){}
+
+    public Event(int id, String name, String contactPhone, String dayhour, int price, String place) {
+        this.id = id;
+        this.name = name;
+        this.contactPhone = contactPhone;
+        this.dayhour = dayhour;
+        this.price = price;
+        this.place = place;
+    }
 
     public int getId() {
         return id;
@@ -58,5 +74,13 @@ public class Event {
 
     public void setPlace(String place) {
         this.place = place;
+    }
+
+    public int getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(int imagen) {
+        this.imagen = imagen;
     }
 }

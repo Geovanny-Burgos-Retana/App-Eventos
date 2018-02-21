@@ -104,4 +104,7 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="action_settings">Settings</string>
+    <string name="find_For">Busqueda por:</string>
+    <string name="since">Desde:</string>
+    <string name="until">Hasta:</string>
 </resources>
