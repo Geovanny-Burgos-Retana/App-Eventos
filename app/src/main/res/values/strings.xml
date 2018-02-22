@@ -107,4 +107,5 @@
     <string name="find_For">Busqueda por:</string>
     <string name="since">Desde:</string>
     <string name="until">Hasta:</string>
+    <string name="title_activity_event">EventActivity</string>
 </resources>

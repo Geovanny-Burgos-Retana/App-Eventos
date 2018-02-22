@@ -97,6 +97,7 @@ public class EventDB extends SQLiteOpenHelper {
             sqLiteDatabase.close();
             return events;
         } catch (Exception e) {
+            System.out.println("Error (readAll)");
             return null;
         }
     }

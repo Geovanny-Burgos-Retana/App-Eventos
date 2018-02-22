@@ -1,6 +1,7 @@
 package com.example.geovanny.myfirstapp.controller;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -93,6 +94,11 @@ public class MainActivity extends Activity {
                 //Se pasa a una nueva ventana para observar todos los detalles del evento
                 Toast.makeText(getApplicationContext(), "Click "+i, Toast.LENGTH_SHORT).show();
                 Event event = (Event) listAdapterEvents.getItem(i);
+
+
+                Intent intentMainActivity1 = new Intent(MainActivity.this, EventActivity.class);
+                intentMainActivity1.putExtra("Event", event);
+                startActivity(intentMainActivity1);
             }
         });
 
