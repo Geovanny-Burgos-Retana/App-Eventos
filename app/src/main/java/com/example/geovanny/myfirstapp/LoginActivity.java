@@ -220,7 +220,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return password.length() > 4;
+        return password.length() > 1;
     }
 
     /**
@@ -358,6 +358,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             if (success) {
                 UserDB userDB = new UserDB(getBaseContext());
                 User user = userDB.findOne();
+                System.out.println("Email I: "+mEmailView.getText().toString()+" "+user.getUsername()+ " Password I: "+mPasswordView.getText()+" "+user.getPassword());
                 if ((user != null) && (user.getUsername().equals(mEmailView.getText().toString())) && user.getPassword().equals(mPasswordView.getText().toString())) {
                     Intent intent2 =new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent2);

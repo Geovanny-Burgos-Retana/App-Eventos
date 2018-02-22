@@ -26,7 +26,7 @@ public class UserDB extends SQLiteOpenHelper {
     private Context context;
 
     public UserDB (Context context) {
-        super(context,dbName,null,1);
+        super(context,dbName,null,2);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class UserDB extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS" + tableName);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + tableName);
         onCreate(sqLiteDatabase);
     }
 
@@ -54,6 +54,7 @@ public class UserDB extends SQLiteOpenHelper {
         try {
             SQLiteDatabase sqLiteDatabase = getWritableDatabase();
             ContentValues contentValues = new ContentValues();
+            contentValues.put(idColumn,1);
             contentValues.put(nameColumn, user.getName());
             contentValues.put(usernameColumn, user.getUsername());
             contentValues.put(passwordColumn, user.getPassword());

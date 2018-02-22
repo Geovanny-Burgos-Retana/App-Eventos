@@ -31,24 +31,24 @@ public class ListAdapterEvents extends BaseAdapter implements Filterable {
 
     public ListAdapterEvents(Context context, ArrayList<Event> dataEvents, int REQUEST_CODE) {
         this.context = context;
-        this.dataEvents = dataEvents;
+        this.setDataEvents(dataEvents);
         this.filterList = dataEvents;
         this.REQUEST_CODE = REQUEST_CODE;
     }
 
     @Override
     public int getCount() {
-        return dataEvents.size();
+        return getDataEvents().size();
     }
 
     @Override
     public Object getItem(int position) {
-        return dataEvents.get(position);
+        return getDataEvents().get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return dataEvents.indexOf(getItem(position));
+        return getDataEvents().indexOf(getItem(position));
     }
 
     @Override
@@ -70,8 +70,17 @@ public class ListAdapterEvents extends BaseAdapter implements Filterable {
         imgImg = (ImageView) view.findViewById(R.id.listFormat_itemIcon);
 
         // Capture position and set to the TextViews
-        txtTitle.setText(dataEvents.get(position).getName());
-        imgImg.setImageResource(dataEvents.get(position).getImagen());
+        if (REQUEST_CODE == 0) {
+            txtTitle.setText(getDataEvents().get(position).getName());
+            imgImg.setImageResource(getDataEvents().get(position).getImagen());
+        } else if (REQUEST_CODE == 1){
+            txtTitle.setText(getDataEvents().get(position).getName()+" : "+ getDataEvents().get(position).getPlace());
+            imgImg.setImageResource(getDataEvents().get(position).getImagen());
+        } else {
+            txtTitle.setText(getDataEvents().get(position).getName()+" : "+ getDataEvents().get(position).getDayhour());
+            imgImg.setImageResource(getDataEvents().get(position).getImagen());
+        }
+
 
         return view;
     }
@@ -83,6 +92,14 @@ public class ListAdapterEvents extends BaseAdapter implements Filterable {
             filter = new CustomFilter();
         }
         return filter;
+    }
+
+    public ArrayList<Event> getDataEvents() {
+        return dataEvents;
+    }
+
+    public void setDataEvents(ArrayList<Event> dataEvents) {
+        this.dataEvents = dataEvents;
     }
 
     class CustomFilter extends Filter{
@@ -98,9 +115,16 @@ public class ListAdapterEvents extends BaseAdapter implements Filterable {
                 ArrayList<Event> filter = new ArrayList<Event>();
 
                 for(Integer i=0;i<filterList.size();i++){
-                    if(filterList.get(i).getName().toUpperCase().contains(constraint)){
-                        filter.add(filterList.get(i));
+                    if (REQUEST_CODE == 0) {
+                        if(filterList.get(i).getName().toUpperCase().contains(constraint)){
+                            filter.add(filterList.get(i));
+                        }
+                    } else if (REQUEST_CODE == 1){
+                        if(filterList.get(i).getPlace().toUpperCase().contains(constraint)){
+                            filter.add(filterList.get(i));
+                        }
                     }
+
                 }
                 resulst.count= filter.size();
                 resulst.values = filter;
@@ -114,7 +138,7 @@ public class ListAdapterEvents extends BaseAdapter implements Filterable {
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            dataEvents = (ArrayList<Event>) results.values;
+            setDataEvents((ArrayList<Event>) results.values);
             notifyDataSetChanged();
 
         }

@@ -39,11 +39,11 @@ public class RegisterUserActivity extends AppCompatActivity {
                 user.setUsername(registerUser_editTextUsername.getText().toString());
                 user.setPassword(registerUser_editTextPassword.getText().toString());
                 if (userDB.create(user)) {
-                    Toast.makeText(getBaseContext(),"Registrado", Toast.LENGTH_LONG);
+                    Toast.makeText(getBaseContext(),"Registrado", Toast.LENGTH_LONG).show();
                     Intent intent1 = new Intent(RegisterUserActivity.this, LoginActivity.class);
                     startActivity(intent1);
                 } else {
-                    Toast.makeText(getBaseContext(),"Fallo registrando usuario", Toast.LENGTH_LONG);
+                    Toast.makeText(getBaseContext(),"Fallo registrando usuario", Toast.LENGTH_LONG).show();
                 }
             }
         });

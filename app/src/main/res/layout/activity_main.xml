@@ -112,7 +112,7 @@
                         android:textSize="18sp" />
 
                     <EditText
-                        android:id="@+id/editText6"
+                        android:id="@+id/activityMainDates_edtStart"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -132,12 +132,12 @@
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentRight="true"
                         android:layout_alignParentStart="true"
-                        android:layout_below="@+id/editText6"
+                        android:layout_below="@+id/activityMainDates_edtStart"
                         android:text="TextView"
                         android:textSize="18sp" />
 
                     <EditText
-                        android:id="@+id/editText7"
+                        android:id="@+id/activityMainDates_edtEnd"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -150,22 +150,23 @@
                         android:text="Name" />
 
                     <Button
-                        android:id="@+id/mainActivityDates_btnFind"
+                        android:id="@+id/activityMainDates_btnFind"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentRight="true"
                         android:layout_alignParentStart="true"
-                        android:layout_below="@+id/editText7"
+                        android:layout_below="@+id/activityMainDates_edtEnd"
                         android:text="Buscar" />
 
                     <ListView
+                        android:id="@+id/activityMainDates_listView"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
-                        android:layout_below="@+id/mainActivityDates_btnFind" />
+                        android:layout_below="@+id/activityMainDates_btnFind" />
 
                 </RelativeLayout>
             </FrameLayout>

@@ -29,24 +29,24 @@ public class EventDB extends SQLiteOpenHelper {
     private Context context;
 
     public EventDB (Context context) {
-        super(context,dbName,null,1);
+        super(context,dbName,null,2);
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         // Creación de la tabla de eventos en la BD
-        sqLiteDatabase.execSQL("create table " + tableName + "(" +
-                idColumn + " INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
+        sqLiteDatabase.execSQL("CREATE TABLE " + tableName + "(" +
+                idColumn + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 nameColumn + " TEXT NOT NULL, " +
                 contactPhoneColumn + " TEXT NOT NULL, " +
                 dayhourColumn + " TEXT NOT NULL, " +
-                priceColumn + " TEXT NOT NULL, " +
+                priceColumn + " INTEGER NOT NULL, " +
                 placeColumn + " TEXT NOT NULL )");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS" + tableName);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + tableName);
         onCreate(sqLiteDatabase);
     }
 
@@ -58,10 +58,12 @@ public class EventDB extends SQLiteOpenHelper {
     public boolean create(Event event) {
         try {
             SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+            System.out.print(sqLiteDatabase);
+            System.out.println(getDatabaseName());
             ContentValues contentValues = new ContentValues();
-            contentValues.put(nameColumn, event.getName());
-            contentValues.put(contactPhoneColumn, event.getContactPhone());
-            contentValues.put(dayhourColumn, event.getDayhour());
+            contentValues.put(nameColumn, event.getName().toString());
+            contentValues.put(contactPhoneColumn, event.getContactPhone().toString());
+            contentValues.put(dayhourColumn, event.getDayhour().toString());
             contentValues.put(priceColumn, event.getPrice());
             contentValues.put(placeColumn, event.getPlace());
             long rows = sqLiteDatabase.insert(tableName,null, contentValues);
@@ -77,7 +79,7 @@ public class EventDB extends SQLiteOpenHelper {
      * @return
      */
     public ArrayList<Event> readAll() {
-        try {
+        //try {
             ArrayList<Event> events = new ArrayList<>();
             SQLiteDatabase sqLiteDatabase = getWritableDatabase();
             Cursor cursor = sqLiteDatabase.rawQuery("select * from " + tableName, null);
@@ -96,10 +98,10 @@ public class EventDB extends SQLiteOpenHelper {
             }
             sqLiteDatabase.close();
             return events;
-        } catch (Exception e) {
-            System.out.println("Error (readAll)");
+        /*} catch (Exception e) {
+            System.out.println("Error (readAll) "+e);
             return null;
-        }
+        }*/
     }
 
     /**
